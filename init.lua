@@ -791,7 +791,7 @@ require('lazy').setup({
 
       -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- Adjusts spacing to ensure icons are aligned
-      nerd_font_variant = 'mono',
+      -- nerd_font_variant = 'mono', xx should be the default; for newer versions of blink-cmp, should be moved to appearance instead of opts
 
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
