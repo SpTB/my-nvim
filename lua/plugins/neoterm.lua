@@ -33,6 +33,16 @@ return {
       end,
     })
 
+    --insert mode when enter into window
+    vim.api.nvim_create_autocmd('WinEnter', {
+      pattern = 'term://*',
+      callback = function()
+        if vim.bo.buftype == 'terminal' then
+          vim.cmd 'startinsert'
+        end
+      end,
+    })
+
     -- Tell neoterm which REPL to spawn for MATLAB buffers when using TREPLSend*
     -- (neoterm will start this automatically the first time you send code)
     vim.g.neoterm_repl_matlab = 'matlab -nodesktop -nosplash'
