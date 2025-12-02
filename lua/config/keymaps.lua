@@ -29,11 +29,37 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
---  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- flag indicating whether the user triggered movement
+user_want_insert = false
+
+-- mark movement keys
+local function mark_nav()
+  user_want_insert = true
+  return '<C-w>' -- it gets completed by next key like h/j/k/l
+end
+
+vim.keymap.set('n', '<C-h>', function()
+  user_want_insert = true
+  vim.cmd 'wincmd h'
+end)
+vim.keymap.set('n', '<C-j>', function()
+  user_want_insert = true
+  vim.cmd 'wincmd j'
+end)
+vim.keymap.set('n', '<C-k>', function()
+  user_want_insert = true
+  vim.cmd 'wincmd k'
+end)
+vim.keymap.set('n', '<C-l>', function()
+  user_want_insert = true
+  vim.cmd 'wincmd l'
+end)
+
+-- --  See `:help wincmd` for a list of all window commands
+-- vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+-- vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+-- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+-- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Leave terminal-mode quickly
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Terminal: exit to Normal' })

@@ -33,13 +33,14 @@ return {
       end,
     })
 
-    --insert mode when enter into window
+    --swith to insert mode when manually entering terminal
     vim.api.nvim_create_autocmd('WinEnter', {
-      pattern = 'term://*',
       callback = function()
-        if vim.bo.buftype == 'terminal' then
+        if user_want_insert and vim.bo.buftype == 'terminal' then
           vim.cmd 'startinsert'
         end
+        -- reset the flag no matter what
+        user_want_insert = false
       end,
     })
 
@@ -139,6 +140,11 @@ return {
         map('n', '<leader>mW', function()
           feed 'viW<leader>ms'
         end, 'MATLAB: send WORD')
+
+        -- <leader>mw: select a word (v + w) and execute:w
+        map('n', '<leader>m$', function()
+          feed 'v$<leader>ms'
+        end, 'MATLAB: send until end of line')
 
         -- <leader>mi: select a conditional (vai motion) and execute
         -- assumes the 'ai' textobject for conditionals already exists
