@@ -23,6 +23,13 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- for people to discover. Otherwise, you normally need to press <C-\''\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- Disable arrow keys *only when* the completion menu is visible
+local opts = { noremap = true, silent = true, expr = true }
+vim.keymap.set('i', '<Up>', 'pumvisible() ? "<Nop>" : "<Up>"', opts)
+vim.keymap.set('i', '<Down>', 'pumvisible() ? "<Nop>" : "<Down>"', opts)
+vim.keymap.set('i', '<Left>', '<Left>', { noremap = true })
+vim.keymap.set('i', '<Right>', '<Right>', { noremap = true })
+
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
