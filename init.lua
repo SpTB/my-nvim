@@ -195,7 +195,7 @@ require('lazy').setup({
         { '<leader>s', group = '[s]earch' },
         { '<leader>t', group = '[t]abs' },
         { '<leader>T', group = '[T]oggle' },
-        { '<leader>h', group = 'git [h]unk', mode = { 'n', 'v' } },
+        { '<leader>h', group = 'git hunk', mode = { 'n', 'v' } },
       },
     },
   },
@@ -289,6 +289,7 @@ require('lazy').setup({
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+      vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch [B]uffers' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', function()
         builtin.find_files { no_ignore = true } -- can add --hidden = true to include .stuff
@@ -829,6 +830,54 @@ require('lazy').setup({
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
+      require('mini.completion').setup()
+      require('mini.operators').setup {
+        -- Each entry configures one operator.
+        -- `prefix` defines keys mapped during `setup()`: in Normal mode
+        -- to operate on textobject and line, in Visual - on selection.
+
+        -- Evaluate text and replace with output
+        evaluate = {
+          prefix = 'g=',
+
+          -- Function which does the evaluation
+          func = nil,
+        },
+
+        -- Exchange text regions
+        exchange = {
+          -- NOTE: Default `gx` is remapped to `gX`
+          prefix = 'gx',
+
+          -- Whether to reindent new text to match previous indent
+          reindent_linewise = true,
+        },
+
+        -- Multiply (duplicate) text
+        multiply = {
+          prefix = 'gm',
+
+          -- Function which can modify text before multiplying
+          func = nil,
+        },
+
+        -- Replace text with register
+        replace = {
+          -- NOTE: Default `gr*` LSP mappings are removed
+          prefix = 'gl',
+
+          -- Whether to reindent new text to match previous indent
+          reindent_linewise = true,
+        },
+
+        -- Sort text
+        sort = {
+          prefix = 'go',
+
+          --Function which does the sort
+          func = nil,
+        },
+      }
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
@@ -915,10 +964,11 @@ require('lazy').setup({
   require 'plugins/colorizer',
   require 'plugins/treesitter-context',
   require 'plugins/treesitter-textobjects',
-  require 'plugins/surround',
+  -- require 'plugins/surround',
   require 'plugins/neoscroll',
   require 'plugins/snipe',
   require 'plugins/yazi',
+  require 'plugins/nvim-ufo',
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!

@@ -80,3 +80,9 @@ vim.opt.softtabstop = 4 -- Number of spaces a <Tab> counts for in insert mode
 
 -- automatically kill terminal buffers
 vim.g.neoterm_autokill = 1
+
+-- folding
+vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
