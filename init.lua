@@ -968,7 +968,7 @@ require('lazy').setup({
   require 'plugins/neoscroll',
   require 'plugins/snipe',
   require 'plugins/yazi',
-  require 'plugins/nvim-ufo',
+  require 'plugins/hardtime',
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!

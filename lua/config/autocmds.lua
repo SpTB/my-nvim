@@ -175,3 +175,20 @@ vim.api.nvim_create_autocmd('CursorMovedI', {
 -- pretty popup without requiring extra plugins
 --vim.notify(out, vim.log.levels.INFO, { title = 'LSP clients (buf ' .. bufnr .. ')' })
 --end, { bang = true })
+
+-- open word docs
+vim.api.nvim_create_autocmd('BufReadPost', {
+  pattern = '*.docx',
+  callback = function()
+    vim.cmd '%!pandoc -f docx -t markdown'
+    vim.bo.filetype = 'markdown'
+    vim.cmd 'silent filetype detect'
+  end,
+})
+
+vim.api.nvim_create_autocmd('BufWritePost', {
+  pattern = '.docx',
+  callback = function()
+    vim.cmd ':%!pandoc -f markdown -t docx'
+  end,
+})
