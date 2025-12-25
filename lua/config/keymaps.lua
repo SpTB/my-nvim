@@ -5,13 +5,15 @@
 --  See `:help hlsearch`
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
--- up/down by line across wrapped lines
-vim.keymap.set('n', 'j', 'gj')
-vim.keymap.set('n', 'k', 'gk')
+
+-- -- up/down by line across wrapped lines
+-- vim.keymap.set('n', 'j', 'gj')
+-- vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set('n', '<Down>', 'gj')
 vim.keymap.set('n', '<Up>', 'gk')
-vim.keymap.set('i', '<Down>', '<Esc>gji', { noremap = true })
-vim.keymap.set('i', '<Up>', '<Esc>gki', { noremap = true })
+
+-- vim.keymap.set('i', '<Down>', '<Esc>gji', { noremap = true })
+-- vim.keymap.set('i', '<Up>', '<Esc>gki', { noremap = true })
 
 -- this is necessary because to reduce the lag when pressing esc. The lag is caused by the command above: since esc is also used for removing the search highlighting
 vim.keymap.set('i', 'hh', '<Esc>')

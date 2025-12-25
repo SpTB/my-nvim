@@ -979,6 +979,7 @@ require('lazy').setup({
   require 'plugins/snipe',
   require 'plugins/yazi',
   require 'plugins/hardtime',
+  require 'plugins/smear-cursor',
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
