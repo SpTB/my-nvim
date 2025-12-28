@@ -50,6 +50,7 @@ vim.g.maplocalleader = '\\'
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
+vim.o.conceallevel = 2
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -980,6 +981,7 @@ require('lazy').setup({
   require 'plugins/yazi',
   require 'plugins/hardtime',
   require 'plugins/smear-cursor',
+  require 'plugins/neorg',
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
