@@ -1,5 +1,6 @@
 return {
   'nvim-treesitter/nvim-treesitter-context',
+  branch = 'master',
   enable = true,
   event = 'BufReadPost',
   config = function()
