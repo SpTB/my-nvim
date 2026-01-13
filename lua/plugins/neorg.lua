@@ -2,9 +2,15 @@ return {
   'nvim-neorg/neorg',
   lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
   version = '*', -- Pin Neorg to the latest stable release
+  dependencies = { 'nvim-treesitter/nvim-treesitter' },
   config = function()
     require('neorg').setup {
       load = {
+        ['core.integrations.treesitter'] = {
+          config = {
+            install_parsers = false,
+          },
+        },
         ['core.defaults'] = {},
         ['core.concealer'] = {
           config = {
@@ -39,14 +45,14 @@ return {
     local function show_results_in_buffer(results, tag)
       if #results > 0 then
         -- Create a new buffer
-        vim.cmd('enew')
+        vim.cmd 'enew'
         -- Set the buffer name
-        vim.api.nvim_buf_set_name(0, "Tagged Items: " .. tag)
+        vim.api.nvim_buf_set_name(0, 'Tagged Items: ' .. tag)
         -- Set filetype for syntax highlighting if desired
         vim.bo.filetype = 'norg'
         -- Insert the results into the buffer
         vim.api.nvim_buf_set_lines(0, 0, -1, false, results)
-        print("Found " .. #results .. " items tagged with '" .. tag .. "'.")
+        print('Found ' .. #results .. " items tagged with '" .. tag .. "'.")
       else
         print("No items found with tag '" .. tag .. "'.")
       end
@@ -85,35 +91,35 @@ return {
 
     -- Keybindings for extracting tagged items from neorg files
     vim.keymap.set('n', '<localleader>l!', function()
-      vim.cmd('ExtractTaggedItems important ' .. vim.fn.expand('%'))
+      vim.cmd('ExtractTaggedItems important ' .. vim.fn.expand '%')
     end, { desc = '[L]ist [!]important items in current file' })
 
     vim.keymap.set('n', '<localleader>l?', function()
-      vim.cmd('ExtractTaggedItems ambiguous ' .. vim.fn.expand('%'))
+      vim.cmd('ExtractTaggedItems ambiguous ' .. vim.fn.expand '%')
     end, { desc = '[L]ist [?]ambiguous items in current file' })
 
     vim.keymap.set('n', '<localleader>l ', function()
-      vim.cmd('ExtractTaggedItems undone ' .. vim.fn.expand('%'))
+      vim.cmd('ExtractTaggedItems undone ' .. vim.fn.expand '%')
     end, { desc = '[L]ist [ ]undone items in current file' })
 
     vim.keymap.set('n', '<localleader>l+', function()
-      vim.cmd('ExtractTaggedItems recurring ' .. vim.fn.expand('%'))
+      vim.cmd('ExtractTaggedItems recurring ' .. vim.fn.expand '%')
     end, { desc = '[L]ist [+]recurring items in current file' })
 
     vim.keymap.set('n', '<localleader>l-', function()
-      vim.cmd('ExtractTaggedItems pending ' .. vim.fn.expand('%'))
+      vim.cmd('ExtractTaggedItems pending ' .. vim.fn.expand '%')
     end, { desc = '[L]ist [-]pending items in current file' })
 
     vim.keymap.set('n', '<localleader>l_', function()
-      vim.cmd('ExtractTaggedItems cancelled ' .. vim.fn.expand('%'))
+      vim.cmd('ExtractTaggedItems cancelled ' .. vim.fn.expand '%')
     end, { desc = '[L]ist [_]cancelled items in current file' })
 
     vim.keymap.set('n', '<localleader>lx', function()
-      vim.cmd('ExtractTaggedItems done ' .. vim.fn.expand('%'))
+      vim.cmd('ExtractTaggedItems done ' .. vim.fn.expand '%')
     end, { desc = '[L]ist [x]done items in current file' })
 
     vim.keymap.set('n', '<localleader>l=', function()
-      vim.cmd('ExtractTaggedItems on hold ' .. vim.fn.expand('%'))
+      vim.cmd('ExtractTaggedItems on hold ' .. vim.fn.expand '%')
     end, { desc = '[L]ist [=]on hold items in current file' })
   end,
 }

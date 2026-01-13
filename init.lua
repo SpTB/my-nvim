@@ -908,13 +908,19 @@ require('lazy').setup({
       --  Check out: https://github:.com/echasnovski/mini.nvim
     end,
   },
-  { -- Highlight, edit, and navigate code
+  { -- Tree-sitter (main branch rewrite)
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = {
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function()
+      local ok, ts = pcall(require, 'nvim-treesitter')
+      if not ok then
+        return
+      end
+
+      -- Equivalent of ensure_installed: install these parsers
+      ts.install {
         'r',
         'python',
         'rnoweb',
@@ -932,18 +938,25 @@ require('lazy').setup({
         'query',
         'vim',
         'vimdoc',
-      },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
+        'norg',
+        'norg_meta',
+      }
+
+      -- Enable tree-sitter highlighting per-buffer using Neovim’s native API
+      local aug = vim.api.nvim_create_augroup('TSMainEnable', { clear = true })
+      vim.api.nvim_create_autocmd('FileType', {
+        group = aug,
+        pattern = '*',
+        callback = function(args)
+          -- Equivalent of highlight.enable = true
+          pcall(vim.treesitter.start, args.buf)
+        end,
+      })
+
+      -- NOTE:
+      -- - auto_install behavior on main is handled by ts.install(...) (you can call it on demand)
+      -- - indent module from legacy configs doesn't map 1:1; we can re-add fold/indent behavior separately
+    end,
   },
 
   -- place them in the correct locations.
@@ -982,6 +995,7 @@ require('lazy').setup({
   require 'plugins/hardtime',
   require 'plugins/smear-cursor',
   require 'plugins/neorg',
+  require 'plugins/luarocks',
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
