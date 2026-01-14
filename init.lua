@@ -832,7 +832,7 @@ require('lazy').setup({
       --  - va)  - [V]isually select [A]round [)]paren
       --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
       --  - ci'  - [C]hange [I]nside [']quote
-      require('mini.ai').setup { n_lines = 500 }
+      -- require('mini.ai').setup { n_lines = 500 }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
@@ -916,8 +916,6 @@ require('lazy').setup({
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
   },
 
-  -- place them in the correct locations.
-
   -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
   --
   --  Here are some example plugins that I've included in the Kickstart repository.
@@ -943,7 +941,7 @@ require('lazy').setup({
   require 'plugins/neoterm',
   require 'plugins/flash',
   require 'plugins/colorizer',
-  require 'plugins/treesitter-context',
+  -- require 'plugins/treesitter-context',
   require 'plugins/treesitter-textobjects',
   require 'plugins/treesitter-modules',
   -- require 'plugins/surround',
